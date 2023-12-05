@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %} Users {% endblock %} {% block content %}
+<div>
+    <h1>Users</h1>
+    <form method="post" action="{{ url_for('add_user') }}">
+        <div>
+            <label for="InputName1">Name</label>
+            <input type="text" id="InputName1" name="name">
+        </div>
+        <div>
+            <label for="InputEmail1">Email</label>
+            <input type="email" id="InputEmail1" name="email">
+        </div>
+        <div>
+            <label for="InputPassword1">Password</label>
+            <input type="password" id="InputPassword1" name="password">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">DeleteUser</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td><a href="{{ url_for('get_user', id=user.id) }}">{{ user.name }}</a></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <form method="post" action="{{ url_for('delete_user_html', id=user.id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
